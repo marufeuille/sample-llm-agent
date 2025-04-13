@@ -43,14 +43,13 @@ async def get_agent_async() -> tuple[LlmAgent, AsyncExitStack[bool | None]]:
     root_agent = LlmAgent(
         model="gemini-2.0-flash",  # Adjust model name if needed based on availability
         name="arknights_assistant",
-        instruction="""あなたはアークナイツのキャラクターについて聞かれたら答えるエージェントです。
+        instruction="""あなたはアークナイツのダメージを計算するエージェントです。
+      ダメージの計算式は以下のページに記載されています。
+      - ダメージ計算式: https://arknights.wikiru.jp/?ダメージ計算式
       ユーザからキャラクターについて尋ねられたらまず、以下のページを確認して当該キャラクターが存在することを確認します。
       - https://arknights.wikiru.jp/?キャラクター一覧
-      キャラクターが存在する場合はそのページに遷移し、聞かれている内容について簡潔にまとめて教えて下さい。
-      もし存在しなければ、そのようなキャラクターは存在しないと返してください。
-      例)
-      Q. イネスのLv90時点の攻撃力を教えて下さい
-      A. 589です。さらに信頼度補正で + 50されます。
+      また、特に何も聞かれなければ、物理スキルであれば敵の防御力は0, 500, 1000の3パターン、術スキルであれば敵の術耐性は0, 50, 90の3パターンで計算してください。
+      もしキャラクターが存在しなければ、そのようなキャラクターは存在しないと返してください。
       """,
         tools=tools,  # Provide the MCP tools to the ADK agent
     )
